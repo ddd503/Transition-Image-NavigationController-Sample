@@ -59,8 +59,7 @@ extension ViewController: UICollectionViewDataSource {
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedCellIndex = indexPath
-        guard let image = UIImage(named: imageDataList[indexPath.item].name) else { return }
-        let detailImageVC = DetailImageViewController(image: image)
+        let detailImageVC = DetailImageViewController(imageData: imageDataList[indexPath.item])
         navigationController?.pushViewController(detailImageVC, animated: true)
     }
 }
@@ -90,7 +89,7 @@ extension ViewController: UINavigationControllerDelegate {
 //        return ci.transitionInProgress ? customInteractor : nil
 //    }
 
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard let detailImageVC = toVC as? ImageDestinationTransitionType else {
             return nil
         }
