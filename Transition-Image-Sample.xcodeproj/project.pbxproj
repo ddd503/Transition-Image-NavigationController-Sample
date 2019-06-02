@@ -169,6 +169,7 @@
 				TargetAttributes = {
 					4595CD8220B98286001CD837 = {
 						CreatedOnToolsVersion = 9.3.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -373,7 +374,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kawahara.Transition-Image-Sample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -391,7 +392,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kawahara.Transition-Image-Sample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

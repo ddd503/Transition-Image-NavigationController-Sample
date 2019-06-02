@@ -11,7 +11,6 @@ import UIKit
 final class DetailImageViewController: UIViewController, ImageDestinationTransitionType {
 
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak private var closeButton: UIButton!
     private let image: UIImage
     private var statusBarIsHidden = false
     private var currentImageStatus: ImageStatus = .normal
@@ -41,35 +40,17 @@ final class DetailImageViewController: UIViewController, ImageDestinationTransit
         imageView.image = image
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if !closeButton.isEnabled {
-            UIView.animate(withDuration: 0.5, delay: 0.3, options: .curveLinear, animations: {
-                self.closeButton.alpha = 1.0
-            }) { (_) in
-                self.closeButton.isEnabled = true
-            }
-        }
-    }
-
     @IBAction func didTapScreen(_ sender: UITapGestureRecognizer) {
         setImageStatus(currentImageStatus)
-    }
-
-    @IBAction func didTapClose(_ sender: UIButton) {
-        sender.isHidden = true
-        dismiss(animated: true, completion: nil)
     }
 
     private func setImageStatus(_ status: ImageStatus) {
         switch status {
         case .normal:
-            closeButton.isHidden = true
             view.backgroundColor = .black
             statusBarIsHidden = true
             currentImageStatus = .focus
         case .focus:
-            closeButton.isHidden = false
             view.backgroundColor = .white
             statusBarIsHidden = false
             currentImageStatus = .normal
