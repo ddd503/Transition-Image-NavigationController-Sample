@@ -6,15 +6,13 @@
 //  Copyright © 2018年 kawaharadai. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-struct ImageData {
-    
-    var image: UIImage?
-    var imageName: String?
-    
-    init(image: UIImage?, imageName: String?) {
-        self.image = image
-        self.imageName = imageName
-    }
+struct Images: Decodable {
+    let images: [ImageData]
+}
+
+struct ImageData: Decodable {
+    let name: String
+    let title: String
 }

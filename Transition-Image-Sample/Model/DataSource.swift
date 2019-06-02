@@ -8,35 +8,18 @@
 
 import UIKit
 
-final class DataSource: NSObject {
-    
+final class DataSource {
     static func create() -> [ImageData] {
-        
-        var result = [ImageData]()
-        
-        guard
-            let filePath =  Bundle.main.path(forResource: "ImageList", ofType: "plist"),
-            let contentsOfFile = NSDictionary(contentsOfFile: filePath),
-            let imageList = contentsOfFile.object(forKey: "Images") as? NSArray
-            else {
-                return result
+        guard let filePath = Bundle.main.path(forResource: "image_list", ofType: "json") else {
+            fatalError("not found ImageList")
         }
-        
-        // dicを配列に入れた上でArrayメソッドのforEachで処理
-        imageList.forEach {
-            
-            guard let dic = $0 as? NSDictionary else {
-                return
-            }
-            
-            var imageData = ImageData.init(image: nil, imageName: nil)
-            
-            imageData.image = UIImage(named: dic["image"] as? String ?? "")
-            imageData.imageName = dic["imageName"] as? String ?? ""
-            
-            result.append(imageData)
-            
+
+        do {
+            let jsonData = try Data(contentsOf: URL(fileURLWithPath: filePath), options: .mappedIfSafe)
+            let mapResponse = try JSONDecoder().decode(Images.self, from: jsonData)
+            return mapResponse.images
+        } catch {
+            fatalError("did fail get ImageList")
         }
-        return result
     }
 }
