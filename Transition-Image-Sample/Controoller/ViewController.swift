@@ -16,6 +16,7 @@ class ViewController: UIViewController, ImageSourceTransitionType {
     private let spacing: CGFloat = 15
     private var selectedCellIndex = IndexPath()
     private var imagePopAnimator: UIViewControllerAnimatedTransitioning?
+    private var customInteractor: CustomInteractor?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,9 +85,9 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 extension ViewController: UINavigationControllerDelegate {
     
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        if let imagePushAnimator = animationController as? ImagePushAnimator,
-        imagePushAnimator.customInteractor.interactionInProgress {
-            return imagePushAnimator.customInteractor
+        if let imagePopAnimator = animationController as? ImagePopAnimator,
+        imagePopAnimator.customInteractor.interactionInProgress {
+            return imagePopAnimator.customInteractor
         } else {
             return nil
         }
@@ -96,16 +97,15 @@ extension ViewController: UINavigationControllerDelegate {
 
         switch operation {
         case .push:
-            guard let detailImageVC = toVC as? (DetailImageViewController & ImageDestinationTransitionType), let customInteractor = detailImageVC.customInteractor else {
+            guard let detailImageVC = toVC as? (DetailImageViewController & ImageDestinationTransitionType) else {
                 return nil
             }
-            imagePopAnimator = ImagePopAnimator(presenting: self, presented: detailImageVC, duration: 1, selectedCellIndex: selectedCellIndex)
-            return ImagePushAnimator(presenting: self, presented: detailImageVC, duration: 1, selectedCellIndex: selectedCellIndex, customInteractor: customInteractor)
+
+            customInteractor = CustomInteractor(navigationController: navigationController, presentedViewController: detailImageVC)
+            imagePopAnimator = ImagePopAnimator(presenting: self, presented: detailImageVC, duration: 1, selectedCellIndex: selectedCellIndex, customInteractor: customInteractor!)
+
+            return ImagePushAnimator(presenting: self, presented: detailImageVC, duration: 1, selectedCellIndex: selectedCellIndex)
         case .pop:
-//            guard fromVC is (DetailImageViewController & ImageDestinationTransitionType),
-//                let detailImageVC = fromVC as? ImageDestinationTransitionType else {
-//                    return nil
-//            }
             return imagePopAnimator
         default:
             return nil

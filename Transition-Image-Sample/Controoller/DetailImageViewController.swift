@@ -11,7 +11,7 @@ import UIKit
 final class DetailImageViewController: UIViewController, ImageDestinationTransitionType {
 
     @IBOutlet weak var imageView: UIImageView!
-    var customInteractor: CustomInteractor?
+//    var customInteractor: CustomInteractor?
     private var statusBarIsHidden = false
     private var currentImageStatus: ImageStatus = .normal
 
@@ -26,7 +26,7 @@ final class DetailImageViewController: UIViewController, ImageDestinationTransit
         view.frame.size.height = UIScreen.main.bounds.height
         title = imageData.title
         imageView.image = UIImage(named: imageData.name)
-        customInteractor = CustomInteractor(navigationController: navigationController, presentedViewController: self)
+//        customInteractor = CustomInteractor(navigationController: navigationController, presentedViewController: self)
     }
 
     required init?(coder aDecoder: NSCoder) {

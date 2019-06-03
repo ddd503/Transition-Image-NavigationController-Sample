@@ -13,12 +13,14 @@ final class ImagePopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     let presented: ImageDestinationTransitionType
     let duration: TimeInterval
     let selectedCellIndex: IndexPath
+    let customInteractor: CustomInteractor
 
-    init(presenting: ImageSourceTransitionType, presented: ImageDestinationTransitionType, duration: TimeInterval, selectedCellIndex: IndexPath) {
+    init(presenting: ImageSourceTransitionType, presented: ImageDestinationTransitionType, duration: TimeInterval, selectedCellIndex: IndexPath, customInteractor: CustomInteractor) {
         self.presenting = presenting
         self.presented = presented
         self.duration = duration
         self.selectedCellIndex = selectedCellIndex
+        self.customInteractor = customInteractor
     }
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {

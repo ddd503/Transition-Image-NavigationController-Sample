@@ -13,14 +13,12 @@ final class ImagePushAnimator: NSObject {
     let presented: ImageDestinationTransitionType
     let duration: TimeInterval
     let selectedCellIndex: IndexPath
-    let customInteractor: CustomInteractor
 
-    init(presenting: ImageSourceTransitionType, presented: ImageDestinationTransitionType, duration: TimeInterval, selectedCellIndex: IndexPath, customInteractor: CustomInteractor) {
+    init(presenting: ImageSourceTransitionType, presented: ImageDestinationTransitionType, duration: TimeInterval, selectedCellIndex: IndexPath) {
         self.presenting = presenting
         self.presented = presented
         self.duration = duration
         self.selectedCellIndex = selectedCellIndex
-        self.customInteractor = customInteractor
     }
 }
 
