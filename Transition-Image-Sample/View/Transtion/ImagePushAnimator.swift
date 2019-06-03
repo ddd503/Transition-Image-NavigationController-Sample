@@ -8,23 +8,27 @@
 
 import UIKit
 
-final class ImagePushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+final class ImagePushAnimator: NSObject {
     let presenting: ImageSourceTransitionType
     let presented: ImageDestinationTransitionType
     let duration: TimeInterval
     let selectedCellIndex: IndexPath
+    let customInteractor: CustomInteractor
 
-    init(presenting: ImageSourceTransitionType, presented: ImageDestinationTransitionType, duration: TimeInterval, selectedCellIndex: IndexPath) {
+    init(presenting: ImageSourceTransitionType, presented: ImageDestinationTransitionType, duration: TimeInterval, selectedCellIndex: IndexPath, customInteractor: CustomInteractor) {
         self.presenting = presenting
         self.presented = presented
         self.duration = duration
         self.selectedCellIndex = selectedCellIndex
+        self.customInteractor = customInteractor
     }
+}
 
+extension ImagePushAnimator: UIViewControllerAnimatedTransitioning {
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
     }
-
+    
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView
         // 遷移先のsuperViewをaddしないと画面が描画されない

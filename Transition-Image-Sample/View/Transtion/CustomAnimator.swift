@@ -9,7 +9,6 @@
 import UIKit
 
 final class CustomAnimator: NSObject, UIViewControllerAnimatedTransitioning {
-    
     var duration : TimeInterval
     var isPresenting : Bool
     var originFrame : CGRect

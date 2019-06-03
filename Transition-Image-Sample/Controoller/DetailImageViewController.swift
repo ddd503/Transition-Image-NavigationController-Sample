@@ -11,6 +11,7 @@ import UIKit
 final class DetailImageViewController: UIViewController, ImageDestinationTransitionType {
 
     @IBOutlet weak var imageView: UIImageView!
+    var customInteractor: CustomInteractor?
     private var statusBarIsHidden = false
     private var currentImageStatus: ImageStatus = .normal
 
@@ -19,12 +20,13 @@ final class DetailImageViewController: UIViewController, ImageDestinationTransit
         case focus
     }
 
-    init(imageData: ImageData) {
+    init(imageData: ImageData, navigationController: UINavigationController) {
         super.init(nibName: "DetailImageViewController", bundle: .main)
         // xibだとiPhoneX画面サイズ = view.frameとはならないため
         view.frame.size.height = UIScreen.main.bounds.height
         title = imageData.title
         imageView.image = UIImage(named: imageData.name)
+        customInteractor = CustomInteractor(navigationController: navigationController, presentedViewController: self)
     }
 
     required init?(coder aDecoder: NSCoder) {

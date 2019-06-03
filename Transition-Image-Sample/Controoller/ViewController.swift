@@ -15,6 +15,7 @@ class ViewController: UIViewController, ImageSourceTransitionType {
     private let numberOfColums: CGFloat = 3
     private let spacing: CGFloat = 15
     private var selectedCellIndex = IndexPath()
+    private var imagePopAnimator: UIViewControllerAnimatedTransitioning?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,8 +60,9 @@ extension ViewController: UICollectionViewDataSource {
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedCellIndex = indexPath
-        let detailImageVC = DetailImageViewController(imageData: imageDataList[indexPath.item])
-        navigationController?.pushViewController(detailImageVC, animated: true)
+        guard let navigationController = navigationController else { return }
+        let detailImageVC = DetailImageViewController(imageData: imageDataList[indexPath.item], navigationController: navigationController)
+        navigationController.pushViewController(detailImageVC, animated: true)
     }
 }
 
@@ -81,25 +83,30 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 
 extension ViewController: UINavigationControllerDelegate {
     
-    // 遷移状態進行を管理
-//    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-//        guard let ci = customInteractor else {
-//            print("ci is nil")
-//            return nil }
-//        return ci.transitionInProgress ? customInteractor : nil
-//    }
-
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard let detailImageVC = toVC as? ImageDestinationTransitionType else {
+    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        if let imagePushAnimator = animationController as? ImagePushAnimator,
+        imagePushAnimator.customInteractor.interactionInProgress {
+            return imagePushAnimator.customInteractor
+        } else {
             return nil
         }
+    }
+
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 
         switch operation {
         case .push:
-//            self.customInteractor = CustomInteractor(attachTo: toVC)
-            return ImagePushAnimator(presenting: self, presented: detailImageVC, duration: 1, selectedCellIndex: selectedCellIndex)
+            guard let detailImageVC = toVC as? (DetailImageViewController & ImageDestinationTransitionType), let customInteractor = detailImageVC.customInteractor else {
+                return nil
+            }
+            imagePopAnimator = ImagePopAnimator(presenting: self, presented: detailImageVC, duration: 1, selectedCellIndex: selectedCellIndex)
+            return ImagePushAnimator(presenting: self, presented: detailImageVC, duration: 1, selectedCellIndex: selectedCellIndex, customInteractor: customInteractor)
         case .pop:
-            return ImagePopAnimator(presenting: self, presented: detailImageVC, duration: 1, selectedCellIndex: selectedCellIndex)
+//            guard fromVC is (DetailImageViewController & ImageDestinationTransitionType),
+//                let detailImageVC = fromVC as? ImageDestinationTransitionType else {
+//                    return nil
+//            }
+            return imagePopAnimator
         default:
             return nil
         }
