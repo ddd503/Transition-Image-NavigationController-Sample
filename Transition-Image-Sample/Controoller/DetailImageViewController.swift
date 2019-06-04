@@ -47,10 +47,12 @@ final class DetailImageViewController: UIViewController, ImageDestinationTransit
         switch status {
         case .normal:
             view.backgroundColor = .black
+            navigationController?.setNavigationBarHidden(true, animated: false)
             statusBarIsHidden = true
             currentImageStatus = .focus
         case .focus:
             view.backgroundColor = .white
+            navigationController?.setNavigationBarHidden(false, animated: false)
             statusBarIsHidden = false
             currentImageStatus = .normal
         }

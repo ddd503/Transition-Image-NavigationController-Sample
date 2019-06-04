@@ -43,7 +43,7 @@ final class ImagePopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         animationView.addSubview(imageView)
         containerView.addSubview(animationView)
 
-        guard let transitionableCell = presenting.collectionView.cellForItem(at: selectedCellIndex) as? TransitionableCell else {
+        guard let transitionableCell = presenting.collectionView.cellForItem(at: selectedCellIndex) as? CollectionViewCell else {
             transitionContext.cancelInteractiveTransition()
             return
         }

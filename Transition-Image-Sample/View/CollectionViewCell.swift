@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class CollectionViewCell: UICollectionViewCell, TransitionableCell {
+final class CollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak private var label: UILabel!

@@ -17,7 +17,3 @@ protocol ImageDestinationTransitionType: UIViewController {
     var view: UIView! { get }
     var imageView: UIImageView! { get }
 }
-
-protocol TransitionableCell: UICollectionViewCell {
-    var imageView: UIImageView! { get }
-}
