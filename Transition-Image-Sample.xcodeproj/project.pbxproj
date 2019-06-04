@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		45065D5A20D161BA00D38A62 /* CustomAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45065D5920D161BA00D38A62 /* CustomAnimator.swift */; };
 		45065D5C20D1626800D38A62 /* CustomInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45065D5B20D1626800D38A62 /* CustomInteractor.swift */; };
 		455BE4A120B9964C00278286 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455BE4A020B9964C00278286 /* CollectionViewCell.swift */; };
 		455BE4A520B998C700278286 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455BE4A420B998C700278286 /* ImageData.swift */; };
@@ -26,7 +25,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		45065D5920D161BA00D38A62 /* CustomAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnimator.swift; sourceTree = "<group>"; };
 		45065D5B20D1626800D38A62 /* CustomInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInteractor.swift; sourceTree = "<group>"; };
 		455BE4A020B9964C00278286 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		455BE4A420B998C700278286 /* ImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
@@ -102,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				455BE4B520B9C1FA00278286 /* ImageTransitionProtocol.swift */,
-				45065D5920D161BA00D38A62 /* CustomAnimator.swift */,
 				45065D5B20D1626800D38A62 /* CustomInteractor.swift */,
 				45A367BB22A412BA00E0C95B /* ImagePushAnimator.swift */,
 				45A367BD22A412C400E0C95B /* ImagePopAnimator.swift */,
@@ -214,7 +211,6 @@
 				455BE4A720B99C6200278286 /* DataSource.swift in Sources */,
 				4595CD8920B98286001CD837 /* ViewController.swift in Sources */,
 				45A367BE22A412C400E0C95B /* ImagePopAnimator.swift in Sources */,
-				45065D5A20D161BA00D38A62 /* CustomAnimator.swift in Sources */,
 				45065D5C20D1626800D38A62 /* CustomInteractor.swift in Sources */,
 				4595CD8720B98286001CD837 /* AppDelegate.swift in Sources */,
 				45A367BC22A412BA00E0C95B /* ImagePushAnimator.swift in Sources */,

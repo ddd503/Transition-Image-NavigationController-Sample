@@ -86,7 +86,7 @@ extension ViewController: UINavigationControllerDelegate {
     
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         if let imagePopAnimator = animationController as? ImagePopAnimator,
-        imagePopAnimator.customInteractor.interactionInProgress {
+            imagePopAnimator.customInteractor.interactionInProgress {
             return imagePopAnimator.customInteractor
         } else {
             return nil
@@ -103,7 +103,6 @@ extension ViewController: UINavigationControllerDelegate {
 
             customInteractor = CustomInteractor(navigationController: navigationController, presentedViewController: detailImageVC)
             imagePopAnimator = ImagePopAnimator(presenting: self, presented: detailImageVC, duration: 1, selectedCellIndex: selectedCellIndex, customInteractor: customInteractor!)
-
             return ImagePushAnimator(presenting: self, presented: detailImageVC, duration: 1, selectedCellIndex: selectedCellIndex)
         case .pop:
             return imagePopAnimator

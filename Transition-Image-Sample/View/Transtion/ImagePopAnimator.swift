@@ -54,12 +54,18 @@ final class ImagePopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                                       width: transitionableCell.imageView.bounds.size.width,
                                       height: transitionableCell.imageView.bounds.size.height)
 
+        let whiteView = UIView(frame: destinationFrame)
+        whiteView.backgroundColor = .white
+        containerView.insertSubview(whiteView, aboveSubview: presenting.view)
+
         UIView.animate(withDuration: duration, animations: {
             backgroundView.alpha = 0
             imageView.frame = destinationFrame
         }) { (_) in
+            whiteView.removeFromSuperview()
             animationView.removeFromSuperview()
-            transitionContext.completeTransition(true)
+            let isCompleteTransition = !transitionContext.transitionWasCancelled
+            transitionContext.completeTransition(isCompleteTransition)
         }
     }
 }
