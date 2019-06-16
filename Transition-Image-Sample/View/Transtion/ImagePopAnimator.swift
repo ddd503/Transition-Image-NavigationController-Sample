@@ -9,8 +9,8 @@
 import UIKit
 
 final class ImagePopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
-    let presenting: ImageSourceTransitionType
-    let presented: ImageDestinationTransitionType
+    weak var presenting: ImageSourceTransitionType?
+    weak var presented: ImageDestinationTransitionType?
     let duration: TimeInterval
     let selectedCellIndex: IndexPath
     let customInteractor: CustomInteractor
@@ -28,6 +28,11 @@ final class ImagePopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        guard let presenting = presenting, let presented = presented else {
+            transitionContext.cancelInteractiveTransition()
+            return
+        }
+        
         let containerView = transitionContext.containerView
         let animationView = UIView(frame: UIScreen.main.bounds)
         // 遷移元のViewをaddしておく（containerViewには遷移先のViewしかaddされないから遷移元のViewを仮に乗せる）
