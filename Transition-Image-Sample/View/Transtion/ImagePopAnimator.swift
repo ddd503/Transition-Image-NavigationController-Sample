@@ -34,7 +34,7 @@ final class ImagePopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         }
         
         let containerView = transitionContext.containerView
-        let animationView = UIView(frame: UIScreen.main.bounds)
+        let animationView = UIView(frame: presenting.view.frame)
         // 遷移元のViewをaddしておく（containerViewには遷移先のViewしかaddされないから遷移元のViewを仮に乗せる）
         containerView.addSubview(presenting.view)
 
@@ -53,12 +53,7 @@ final class ImagePopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             return
         }
 
-        let origin = transitionableCell.convert(transitionableCell.imageView.bounds.origin, to: presenting.view)
-        let destinationFrame = CGRect(x: origin.x,
-                                      y: origin.y,
-                                      width: transitionableCell.imageView.bounds.size.width,
-                                      height: transitionableCell.imageView.bounds.size.height)
-
+        let destinationFrame = transitionableCell.imageView.superview!.convert(transitionableCell.imageView.frame, to: containerView)
         let whiteView = UIView(frame: destinationFrame)
         whiteView.backgroundColor = .white
         containerView.insertSubview(whiteView, aboveSubview: presenting.view)

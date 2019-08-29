@@ -34,28 +34,25 @@ extension ImagePushAnimator: UIViewControllerAnimatedTransitioning {
         }
 
         let containerView = transitionContext.containerView
-        // 遷移先のsuperViewをaddしないと画面が描画されない
+        presented.view.frame = transitionContext.finalFrame(for: presented)
         containerView.addSubview(presented.view)
-        presented.view.alpha = 0
-        // 遷移先のViewのframeが確定していないため確定させる（呼ばないと確定前のoriginが取れる）
         presented.view.layoutIfNeeded()
+        presented.view.alpha = 0
 
         guard let transitionableCell = presenting.collectionView.cellForItem(at: selectedCellIndex) as? CollectionViewCell else {
             transitionContext.cancelInteractiveTransition()
             return
         }
 
-        let animationView = UIView(frame: UIScreen.main.bounds)
+        let animationView = UIView(frame: presented.view.frame)
         animationView.backgroundColor = .white
-
-        let imageView = UIImageView(image: transitionableCell.imageView.image)
-        imageView.frame.size = transitionableCell.imageView.frame.size
+        let imageView = UIImageView(frame: transitionableCell.imageView.superview!.convert(transitionableCell.imageView.frame, to: animationView))
+        imageView.image = transitionableCell.imageView.image
         imageView.contentMode = transitionableCell.imageView.contentMode
-        imageView.frame.origin = transitionableCell.convert(transitionableCell.imageView.bounds.origin, to: presenting.view)
         animationView.addSubview(imageView)
         containerView.addSubview(animationView)
 
-        let animation = UIViewPropertyAnimator(duration: duration, dampingRatio: 0.75) {
+        let animation = UIViewPropertyAnimator(duration: duration, dampingRatio: 0.8) {
             imageView.frame = presented.imageView.frame
         }
         animation.addCompletion { (_) in
